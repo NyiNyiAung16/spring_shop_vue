@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.loading{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: aqua;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to{transform: rotate(360deg);}
+}
+
+.spin{
+    display: block;
+    margin: auto;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #fff;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.container{
+    max-width: 500px;
+    margin: 50px auto;
+}
+.label{
+    font-size: 30px;
+    letter-spacing: 1px;
+    color: #fff;
+}
+.input{
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+}
+.input:focus{
+    outline: none;
+}
+
+.productLabel {
+    color: #999;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+/* for nav bar  */
+.middleNav{
+    display: block;
+}
+
+
+/* scroll style */
+.productContainer{
+    height: 80%;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+@media (max-width:768px) {
+    .middleNav{
+        display: block;
+        background-color: #293648;
+        width: 100%;
+        max-height:0px; 
+        position: absolute;
+        left: 0;
+        top: 50px;
+        overflow: hidden;
+        transition: all 1.4s linear;
+    }
+    #check:checked ~ .middleNav{
+        max-height: 350px;
+        padding: 10px 0px;
+    }
+    .middleNav div{
+        flex-direction: column;
+    }
+}
