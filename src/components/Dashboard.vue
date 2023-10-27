@@ -67,8 +67,9 @@ const emit = defineEmits(['edit']);
 
 const products = ref([]);
 const colRef = collection(db,'productCollection');
+const q = query(colRef,orderBy('category','desc'));
 onMounted(()=>{
-    onSnapshot(colRef, (snap) => {
+    onSnapshot(q, (snap) => {
     const getProducts = snap.docs.map((doc)=>{
         return { id:doc.id, ...doc.data() };
     });

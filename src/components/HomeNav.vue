@@ -13,7 +13,6 @@
                 <RouterLink to="/" class="hover:text-gray-300 hover:translate-x-1 md:hover:translate-x-0 duration-200">Home</RouterLink>
                 <a href="#about" class="hover:text-gray-300 hover:translate-x-1 md:hover:translate-x-0 duration-200">About</a>
                 <a href="#contact" class="hover:text-gray-300 hover:translate-x-1 md:hover:translate-x-0 duration-200">Contact</a>    
-
                 <RouterLink to="/products" class="hover:text-gray-300 hover:translate-x-1 md:hover:translate-x-0 duration-200">Products</RouterLink>
                 <!-- auth section -->
                 <div v-if="!user">

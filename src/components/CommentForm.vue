@@ -16,8 +16,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
 import { db,auth } from '../firebase/config'
-import { collection,addDoc } from 'firebase/firestore'
+import { collection,addDoc, serverTimestamp } from 'firebase/firestore'
 import QuestionComments from './QuestionComments.vue';
 
 const props = defineProps({
@@ -27,29 +28,35 @@ const props = defineProps({
 const comment = ref('');
 const span = ref(null);
 const error = ref(null);
+const router = useRouter();
 const colRef = collection(db,'commentCollection');
 const AddComment = async() => {
-    if(comment.value.length <= 0){
+    if(!auth.currentUser){
+        router.push({name:'createAccount'});
+    }else{
+        if(comment.value.length <= 0){
         error.value.innerText = 'Message field is required!!!';
         setTimeout(()=>{
             error.value.innerText = ''
         },2000)
-    }
-    if(comment.value.length > 0){
-        const user = auth.currentUser;
-        const data = {
-            uid:user.uid,
-            productId:props.id,
-            name:user.displayName,
-            photo:user.photoURL,
-            message:comment.value
-        };
-        span.value.innerText = '';
-        span.value.classList.add('spin');
-        await addDoc(colRef,data);
-        span.value.innerText = 'Submit';
-        span.value.classList.remove('spin');
-        comment.value = '';
+        }
+        if(comment.value.length > 0){
+            const user = auth.currentUser;
+            const data = {
+                uid:user.uid,
+                productId:props.id,
+                name:user.displayName,
+                photo:user.photoURL,
+                message:comment.value,
+                created_at:serverTimestamp()
+            };
+            span.value.innerText = '';
+            span.value.classList.add('spin');
+            await addDoc(colRef,data);
+            span.value.innerText = 'Submit';
+            span.value.classList.remove('spin');
+            comment.value = '';
+        }
     }
 };
 

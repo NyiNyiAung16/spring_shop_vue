@@ -12,11 +12,12 @@
             <input type="password" class="input mb-2" placeholder="Enter your password" v-model="password">
             <p class="text-red-600 text-center my-1">{{ error }}</p>
             <button class=" px-3 py-2 block mx-auto bg-blue-600 text-white border-0 rounded" style="width: 100px;">
-                <span ref="register">Register</span>
+                <span ref="span">Register</span>
             </button>
             <p class="text-center text-gray-300 text-lg mt-2">Already have a account! <span class="underline text-blue-400 cursor-pointer" @click="$emit('login')">Login </span>here.</p>
         </form>
     </div>
+    
 </template>
 
 <script setup>
@@ -31,31 +32,32 @@ const displayName = ref('');
 const email = ref('');
 const password = ref('');
 const photo = ref(null);
-const register = ref(null);
+const span = ref(null);
+const url = ref(null);
 const router = useRouter();
 
 let {error,registerUser} = signIn();
 const Register = async() => {
     //add spin
-    register.value.innerText = '';
-    register.value.classList.add('spin');
+    span.value.innerText = '';
+    span.value.classList.add('spin');
     //store photo
-    const name = photo.value.files[0].name;
-    const file = photo.value.files[0];
-    const storageRef = storageReference(storage,`registerPhoto/${name}`);
-    await uploadBytes(storageRef,file);
-    let getUrl = await getDownloadURL(storageRef);
-    
-    const url = ref(null);
-    url.value = getUrl;
-    console.log(url);
+    if(photo.value.files.length > 0){
+        const name = photo.value.files[0].name;
+        const file = photo.value.files[0];
+        const storageRef = storageReference(storage,`registerPhoto/${name}`);
+        await uploadBytes(storageRef,file);
+        let getUrl = await getDownloadURL(storageRef);
+        url.value = getUrl;
+    } 
+     
     //signin
     const res = await registerUser(email.value,password.value,displayName.value,url.value);
     displayName.value = '';
     email.value = '';
     password.value = '';
-    register.value.innerText = 'Register';
-    register.value.classList.remove('spin');
+    span.value.classList.remove('spin');
+    span.value.innerText = 'Register';
     if(res){
         router.push('/');
     }

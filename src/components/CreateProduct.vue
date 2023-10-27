@@ -34,7 +34,7 @@ const name = ref('');
 const price = ref('');
 const description = ref('');
 const category = ref('choose');
-const emit = defineEmits(['finished']);
+const emit = defineEmits(['finished','hideCreateProduct']);
 
 //create product
 const photo = ref(null);
@@ -42,7 +42,7 @@ const label = ref(null);
 const span = ref(null);
 const colRef = collection(db,'productCollection');
 const createProduct = async() => {
-    //add data
+    //add photo data
     const photoPath = photo.value.files[0].name;
     const file =  photo.value.files[0];
     //style spin
@@ -67,8 +67,7 @@ const createProduct = async() => {
         let res = await addDoc(colRef,data);
         //remove style
         span.value.innerText = 'Create';
-        span.value.classList.remove('spin');
-        emit('finished');
+        span.value.classList.remove('spin'); 
     }catch(err){
         console.log(err.message)
     }
@@ -76,7 +75,7 @@ const createProduct = async() => {
     price.value = '';
     description.value = '';
     category.value = 'choose';
-    
+    emit('finished');
 };
 
 const file = () => {

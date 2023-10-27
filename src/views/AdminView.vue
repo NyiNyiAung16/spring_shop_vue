@@ -28,7 +28,7 @@
            </Suspense>
         </div>
         <div v-else class="lg:col-span-9 md:col-span-10 col-span-11 bg-slate-200 rounded p-2 ms-3 lg:ms-10 mt-3 lg:mt-0">
-            <CreateProduct @finished="toggleProduct = true"/>
+            <CreateProduct @finished="toggle = true"/>
         </div>     
     </div>
         

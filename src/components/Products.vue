@@ -2,7 +2,7 @@
     <div>
         <h3 class="text-4xl text-white text-center underline mb-7 mt-2">Products</h3>
         <div class="grid grid-rows-1 grid-cols-12 productContainer" ref="mainDiv">
-            <div  v-for="product in Products" :key="product.id"  class="lg:col-span-3 md:col-span-4 sm:col-span-6 col-span-11 border rounded bg-white flex flex-col justify-between mb-3 ml-10 sm:mx-2">
+            <div  v-for="product in filterProducts" :key="product.id"  class="lg:col-span-3 md:col-span-4 sm:col-span-6 col-span-11 border rounded bg-white flex flex-col justify-between mb-3 ml-10 sm:mx-2">
                 <img class="mx-auto pt-2" :src="product.photoUrl" alt="productImage" style="max-height: 120px;background: white;" loading="lazy">
                 <div class="text-gray-900 ml-2 mt-1"> 
                     <h5>{{ product.name }}</h5>
@@ -31,6 +31,7 @@ let Products = ref([]);
 let getProducts = ref([]);
 let latestDoc = ref(null);
 let loader = ref(null);
+let filterProducts = ref([]);
 
 async function getLimitProducts(quantity){
     const colRef = collection(db,'productCollection');
@@ -40,6 +41,7 @@ async function getLimitProducts(quantity){
         return {id:doc.id, ...doc.data()}
     });
     getProducts.value.forEach((p)=>Products.value.push(p));
+    filterProducts.value = Products.value;
     latestDoc.value = res.docs[res.docs.length - 1];
     if(res.empty){
         window.removeEventListener('scroll',handleScroll);
@@ -49,13 +51,17 @@ async function getLimitProducts(quantity){
 
 
 const category = (cat) => {
-    Products.value = Products.value.filter((p)=>{
+    filterProducts.value = Products.value.filter((p)=>{
         return p.category === cat;
     });
 };
 
 watch(props,()=>{
-    Products.value = Products.value.filter((p)=>{ return p.category === props.cate });
+    if(props.cate === 'All'){
+        filterProducts.value = Products.value;
+    }else{
+        filterProducts.value = Products.value.filter((p)=>{ return p.category === props.cate });
+    }
 },{immediate:true}) 
 
 

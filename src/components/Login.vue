@@ -7,7 +7,9 @@
             <label class="lable mb-1 block text-gray-400 text-lg">Password</label>
             <input type="password" class="input mb-2" placeholder="Enter your password" v-model="password">
             <p class="text-center text-red-500 my-1">{{ error }}</p>
-            <button class="px-3 py-2 block mx-auto bg-blue-600 text-white border-0 rounded">Login</button>
+            <button class="px-3 py-2 block mx-auto bg-blue-600 text-white border-0 rounded">
+                <span ref="span">Login</span>
+            </button>
             <p class="text-center text-gray-300 text-lg mt-2">Don't have a account! <span class="underline text-blue-400 cursor-pointer" @click="$emit('signin')">Sign in </span>here.</p>
         </form>
     </div>
@@ -19,17 +21,23 @@ import { useRouter } from 'vue-router'
 import Login from '../composables/Login';
 defineEmits(['signin']);
 
+const span = ref(null);
 const email = ref('');
 const password = ref('');
 const router = useRouter();
 let {error,loginUser} = Login();
 const LoginForm = async() => {
+    span.value.innerText = '';
+    span.value.classList.add('spin');
     const res = await loginUser(email.value,password.value);
     email.value = '';
     password.value = '';
+    span.value.classList.remove('spin');
+    span.value.innerText = 'Login';
     if(res){
         router.push('/');
     }
+    localStorage.setItem('loginflashMsg','true');
 }
 
 

@@ -10,12 +10,20 @@
                 </div>
                 <div class="col-span-1 mx-auto pl-3 flex flex-col gap-4 text-white">
                     <div class="flex gap-5">
-                        <font-awesome-icon icon="fa-brands fa-facebook" class="text-3xl hover:text-blue-400 hover:scale-105 duration-300 cursor-pointer"></font-awesome-icon>
-                        <font-awesome-icon icon="fa-brands fa-github" class="text-3xl hover:text-blue-300 hover:scale-105 duration-300 cursor-pointer"></font-awesome-icon>
+                        <a href="https://www.facebook.com/nyinyiaung.nyinyiaung.75054689" target="_blank">
+                            <font-awesome-icon icon="fa-brands fa-facebook" class="text-3xl hover:text-blue-400 hover:scale-105 duration-300 cursor-pointer"></font-awesome-icon>
+                        </a>
+                        <a href="https://github.com/NyiNyiAung16" target="_blank">
+                            <font-awesome-icon icon="fa-brands fa-github" class="text-3xl hover:text-blue-300 hover:scale-105 duration-300 cursor-pointer"></font-awesome-icon>
+                        </a>
                     </div>
-                    <div class="flex gap-5">
-                        <font-awesome-icon icon="fa-brands fa-linkedin" class=" text-3xl hover:text-blue-400 hover:scale-105 duration-300 cursor-pointer"></font-awesome-icon>
-                        <font-awesome-icon icon="fa-brands fa-twitter" class="text-3xl hover:text-blue-400 hover:scale-105 duration-300 cursor-pointer"></font-awesome-icon>
+                    <div class="flex gap-5">   
+                        <a href="https://www.linkedin.com/in/nyi-nyi-36500b264/" target="_blank">
+                            <font-awesome-icon icon="fa-brands fa-linkedin" class=" text-3xl hover:text-blue-400 hover:scale-105 duration-300 cursor-pointer"></font-awesome-icon>
+                        </a>
+                        <a href="https://twitter.com/NyinyiAung89452" target="_blank">
+                            <font-awesome-icon icon="fa-brands fa-twitter" class="text-3xl hover:text-blue-400 hover:scale-105 duration-300 cursor-pointer"></font-awesome-icon>
+                        </a>
                     </div>
                 </div>
             </div>

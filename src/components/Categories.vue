@@ -1,7 +1,7 @@
 <template>
     <div class="relative">
         <input type="checkbox" class="hidden" id="catgCheck">
-        <label for="catgCheck" class="px-3 py-2 border-0 rounded bg-transparent hover:text-gray-300 duration-200">Categories</label>
+        <label for="catgCheck" class="px-3 py-2 border-0 rounded bg-transparent hover:text-gray-300 duration-200 cursor-pointer">Categories</label>
         <ul class="dropdown md:absolute bg-gray-500 px-3 py-1 border-0 rounded md:left-0">
             <li class="mb-1 hover:text-gray-200 hover:translate-x-1 duration-200" 
             v-for="category in categories"

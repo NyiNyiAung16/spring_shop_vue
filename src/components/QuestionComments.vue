@@ -4,10 +4,10 @@
         <div v-if="props.productId === comment.productId" class="max-w-md mx-auto bg-white rounded p-3 mt-5">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-2">
-                    <img :src="comment.photo" class="w-10 h-10 rounded-full" alt="commentimg">
+                    <img :src="comment.photo" class="w-10 h-10 rounded-full" alt="commentimg" style="object-fit: cover;">
                     <span>{{comment.name}}</span>
                 </div>
-                <div class="relative">
+                <div class="relative" v-if="auth.currentUser">
                     <div v-if="auth.currentUser.uid === comment.uid">
                         <font-awesome-icon icon="ellipsis-vertical" class="text-2xl text-gray-800 hover:text-gray-600 hover:duration-300 cursor-pointer" @click="showEditMenu(comment.id)" />
                     </div>
@@ -29,7 +29,7 @@
 <script setup>
 import { ref,onMounted } from 'vue'
 import { db,auth } from '../firebase/config';
-import { collection,onSnapshot, query,orderBy, limit, doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection,onSnapshot, query,orderBy, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 
 const props = defineProps({
     productId:String
@@ -38,7 +38,7 @@ const props = defineProps({
 
 const comments = ref([]);
 const colRef = collection(db,'commentCollection');
-const q = query(colRef,orderBy('message','desc'),limit(4));
+const q = query(colRef,orderBy('message','desc'));
 onMounted(()=>{
     onSnapshot(q,(snap)=>{
        comments.value = snap.docs.map((doc)=>{
