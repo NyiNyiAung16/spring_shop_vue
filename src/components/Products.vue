@@ -31,7 +31,11 @@ let Products = ref([]);
 let getProducts = ref([]);
 let latestDoc = ref(null);
 let loader = ref(null);
+<<<<<<< HEAD
 let filterProducts = ref([]);
+=======
+let filterProducts;
+>>>>>>> 3b1eedfff6d7e8c6aad2f19ec42c2fb4f2dde006
 
 async function getLimitProducts(quantity){
     const colRef = collection(db,'productCollection');
@@ -41,7 +45,11 @@ async function getLimitProducts(quantity){
         return {id:doc.id, ...doc.data()}
     });
     getProducts.value.forEach((p)=>Products.value.push(p));
+<<<<<<< HEAD
     filterProducts.value = Products.value;
+=======
+    filterProducts = Products.value;
+>>>>>>> 3b1eedfff6d7e8c6aad2f19ec42c2fb4f2dde006
     latestDoc.value = res.docs[res.docs.length - 1];
     if(res.empty){
         window.removeEventListener('scroll',handleScroll);
@@ -49,6 +57,7 @@ async function getLimitProducts(quantity){
     return res; 
 };
 
+<<<<<<< HEAD
 
 const category = (cat) => {
     filterProducts.value = Products.value.filter((p)=>{
@@ -62,6 +71,22 @@ watch(props,()=>{
     }else{
         filterProducts.value = Products.value.filter((p)=>{ return p.category === props.cate });
     }
+=======
+// const category = (cat) => {
+//     Products.value = Products.value.filter((p)=>{
+//         return p.category === cat;
+//     });
+// };
+watch(props,()=>{
+    if (props.cate == 'All') {  // for category name 'All'
+        filterProducts = Products.value;
+    } else {
+        filterProducts = Products.value.filter((p)=>{ 
+            return p.category === props.cate 
+        });
+    }
+    // console.log(filterProducts);
+>>>>>>> 3b1eedfff6d7e8c6aad2f19ec42c2fb4f2dde006
 },{immediate:true}) 
 
 
